@@ -1,7 +1,19 @@
 package com.github.iscanner.iscanner_android;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.alibaba.fastjson.JSON;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +33,8 @@ public class HistoryActivity extends Activity implements OnClickListener {
 	private TextView title;
 	private Button leftButton;
 	private ListView listView;
+	private List parentList;
+	private List<String> data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +42,20 @@ public class HistoryActivity extends Activity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_history);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
-		getSharedPreferences();
+		getSharedPreferences("list");
 		initView();
 		Log.i(TAG, "start loading...");
 	}
-	
-	public void getSharedPreferences() {
-		SharedPreferences settings = this.getSharedPreferences("localstoregeXML", 0);
-		String list = settings.getString("list", "");
-		Log.i(TAG, list);
+
+	public void getSharedPreferences(String locastorageKey) {
+		SharedPreferences settings = this.getSharedPreferences(
+				"localstoregeXML", 0);
+		String list = settings.getString(locastorageKey, "");
+		if (list != "") {
+			Log.i(TAG, list);
+			parentList = JSON.parseArray(list);
+			initTabel();
+		}
 	}
 
 	public void initView() {
@@ -45,18 +64,46 @@ public class HistoryActivity extends Activity implements OnClickListener {
 		leftButton = (Button) findViewById(R.id.button_first);
 		leftButton.setOnClickListener(this);
 		leftButton.setVisibility(View.VISIBLE);
+	}
+
+	public void initTabel() {
 		listView = (ListView) findViewById(R.id.historyListView);
-		String items[] = new String[] { "item2", "item3", "item4", "item5" };
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, items);
+				android.R.layout.simple_list_item_1, getData());
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Log.i(TAG, "" + arg2);
+				String current = data.get(arg2);
+				String regEx = "\\d+-\\d+-\\d+";
+				Pattern pattern = Pattern.compile(regEx);
+				Matcher matcher = pattern.matcher(current);
+				if (!matcher.matches()) {
+					Intent viewIntent = new Intent(
+							"android.intent.action.VIEW", Uri.parse(current));
+					startActivity(viewIntent);
+				}
 			}
 		});
+	}
+
+	private List<String> getData() {
+		data = new ArrayList<String>();
+
+		for (int i = 0; i < parentList.size(); i++) {
+			Map<String, Object> current = (Map<String, Object>) parentList
+					.get(i);
+			Set<String> keys = current.keySet();
+			String tempKey = keys.toArray()[0].toString();
+			Log.i(TAG, tempKey);
+			data.add(tempKey);
+			List<String> list = (List) current.get(tempKey);
+			for (int j = 0; j < list.size(); j++) {
+				data.add(list.get(j));
+			}
+		}
+		return data;
 	}
 
 	public void onClick(View view) {
