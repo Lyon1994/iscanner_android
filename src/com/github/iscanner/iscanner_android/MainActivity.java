@@ -10,11 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
