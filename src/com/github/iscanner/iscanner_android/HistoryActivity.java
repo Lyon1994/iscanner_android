@@ -1,14 +1,11 @@
 package com.github.iscanner.iscanner_android;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.alibaba.fastjson.JSON;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,18 +19,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.alibaba.fastjson.JSON;
 
 public class HistoryActivity extends Activity implements OnClickListener {
 	private static final String TAG = "iscanner";
 	private TextView title;
 	private Button leftButton;
 	private ListView listView;
-	private List parentList;
+	private List<?> parentList;
 	private List<String> data;
 
 	@Override
