@@ -83,7 +83,6 @@ public class MainActivity extends Activity implements Callback, OnClickListener 
 		inactivityTimer = new InactivityTimer(this);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -278,6 +277,7 @@ public class MainActivity extends Activity implements Callback, OnClickListener 
 		localEditor.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	@SuppressLint("CommitPrefEdits")
 	public void setSharedPreferences(String localStorageKey, String resultString) {
 		Date date = new Date();
@@ -301,8 +301,9 @@ public class MainActivity extends Activity implements Callback, OnClickListener 
 			localEditor.commit();
 		} else {
 			Log.i(TAG, "list data is" + list);
+			@SuppressWarnings("rawtypes")
 			List parentList = JSON.parseArray(list);
-			Map<String, List<String>> dictionary = (Map) parentList
+			Map<String, List<String>> dictionary = (Map<String, List<String>>) parentList
 					.get(parentList.size() - 1);
 			Set<String> keys = dictionary.keySet();
 			String tempKey = keys.toArray()[0].toString();

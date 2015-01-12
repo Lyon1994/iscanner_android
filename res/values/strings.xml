@@ -3,6 +3,6 @@
     <string name="app_name">iScanner</string>
     <string name="back_name">back</string>
     <string name="history_name">history</string>
-    <string name="copyright_content">iScanner v1.0\nby xdf</string>
+    <string name="copyright_content">iScanner by xdf</string>
     <string name="action_settings">Settings</string>
 </resources>

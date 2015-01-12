@@ -1,14 +1,17 @@
 package com.github.iscanner.iscanner_android;
 
 import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +31,20 @@ public class AboutActivity extends Activity implements OnClickListener {
 		Log.i(TAG, "start loading...");
 	}
 
+	public String getVersion() {
+		String version = "1.0";
+		PackageManager manager;
+		PackageInfo info = null;
+		manager = this.getPackageManager();
+		try {
+			info = manager.getPackageInfo(this.getPackageName(), 0);
+			version = info.versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return version;
+	}
+
 	public void initView() {
 		leftButton = (Button) findViewById(R.id.button_first);
 		leftButton.setOnClickListener(this);
@@ -35,6 +52,7 @@ public class AboutActivity extends Activity implements OnClickListener {
 		title = (TextView) findViewById(R.id.title);
 		title.setText("About");
 		copyright = (TextView) findViewById(R.id.copyright);
+		copyright.setText("iScanner v" + getVersion() + "\nby xdf");
 		copyright.setTextColor(Color.rgb(180, 180, 180));
 	}
 
