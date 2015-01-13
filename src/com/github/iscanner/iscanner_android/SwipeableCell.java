@@ -125,8 +125,8 @@ public class SwipeableCell extends ListView {
 		case MotionEvent.ACTION_MOVE:
 			float dx = lastX - mFirstX;
 			float dy = lastY - mFirstY;
-
-			// confirm is scroll direction
+			
+			//mCurrentItemView
 			if (mIsHorizontal == null) {
 				if (!judgeScrollDirection(dx, dy)) {
 					break;
@@ -142,7 +142,6 @@ public class SwipeableCell extends ListView {
 					dx = dx - mRightViewWidth;
 				}
 
-				// can't move beyond boundary
 				if (dx < 0 && dx > -mRightViewWidth) {
 					mCurrentItemView.scrollTo((int) (-dx), 0);
 				}
@@ -180,7 +179,6 @@ public class SwipeableCell extends ListView {
 	}
 
 	private void clearPressedState() {
-		// TODO current item is still has background, issue
 		mCurrentItemView.setPressed(false);
 		setPressed(false);
 		refreshDrawableState();
@@ -192,7 +190,6 @@ public class SwipeableCell extends ListView {
 		msg.arg1 = view.getScrollX();
 		msg.arg2 = mRightViewWidth;
 		msg.sendToTarget();
-
 		mIsShown = true;
 	}
 
@@ -204,9 +201,7 @@ public class SwipeableCell extends ListView {
 		msg.obj = view;
 		msg.arg1 = view.getScrollX();
 		msg.arg2 = 0;
-
 		msg.sendToTarget();
-
 		mIsShown = false;
 	}
 
