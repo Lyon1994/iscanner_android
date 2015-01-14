@@ -19,6 +19,7 @@
         android:visibility="gone" >
         <ImageView
             android:id="@+id/qr_image_view"
+            android:contentDescription="@string/app_name"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"

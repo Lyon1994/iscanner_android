@@ -1,6 +1,7 @@
 package com.github.iscanner.iscanner_android;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +30,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,9 +64,11 @@ public class HistoryActivity extends Activity implements OnClickListener {
 		SharedPreferences settings = this.getSharedPreferences(
 				"localstoregeXML", 0);
 		String list = settings.getString(locastorageKey, "");
+		Log.i(TAG, list);
 		if (list != "") {
 			Log.i(TAG, list);
 			parentList = JSON.parseArray(list);
+			Collections.reverse(parentList);
 			initTabel();
 		}
 	}
@@ -134,6 +136,7 @@ public class HistoryActivity extends Activity implements OnClickListener {
 				animationAlpha.setDuration(800);
 				imgImageView.setAnimation(animationAlpha);
 			}
+
 			@Override
 			public void clickCopyButton(View view, int position) {
 				ClipboardManager c = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -145,9 +148,6 @@ public class HistoryActivity extends Activity implements OnClickListener {
 				toast.show();
 			}
 		});
-		TextView t = new TextView(this);
-		t.setText("12312312");
-		listView.addHeaderView(t);
 		listView.setAdapter(mAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -177,6 +177,7 @@ public class HistoryActivity extends Activity implements OnClickListener {
 			Log.i(TAG, tempKey);
 			data.add(tempKey);
 			List<String> list = (List<String>) current.get(tempKey);
+			Collections.reverse(list);
 			for (int j = 0; j < list.size(); j++) {
 				data.add(list.get(j));
 			}

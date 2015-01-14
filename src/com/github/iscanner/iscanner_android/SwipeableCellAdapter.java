@@ -1,17 +1,16 @@
 package com.github.iscanner.iscanner_android;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -47,35 +46,50 @@ public class SwipeableCellAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		String temp = (String) this.data.get(position);
-		if (convertView == null) {
-			Log.i(TAG, (String) this.data.get(position));
-			convertView = LayoutInflater.from(mContext).inflate(R.layout.cell,
+		Log.i(TAG, (String) this.data.get(position));
+		holder = new ViewHolder();
+		String regEx = "\\d+-\\d+-\\d+";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher((String) this.data.get(position));
+		if (!matcher.matches()) {
+			holder.needTouch = true;
+		}
+		if (!holder.needTouch) {
+			convertView = LayoutInflater.from(mContext).inflate(R.layout.cell_header,
 					parent, false);
-			holder = new ViewHolder();
 			holder.cell_content = (RelativeLayout) convertView
 					.findViewById(R.id.cell_content);
-			holder.item_right = (RelativeLayout) convertView
-					.findViewById(R.id.item_right);
 			holder.content = (TextView) convertView.findViewById(R.id.content);
-			holder.create_button = (Button) convertView
-					.findViewById(R.id.create_button);
-			holder.copy_button = (TextView) convertView
-					.findViewById(R.id.copy_button);
+			LinearLayout.LayoutParams linearLayout1 = new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+			holder.cell_content.setLayoutParams(linearLayout1);
+			holder.content.setText((CharSequence) data.get(position));
 			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
+			return convertView;
 		}
+		convertView = LayoutInflater.from(mContext).inflate(R.layout.cell_body,
+				parent, false);
+		holder.cell_content = (RelativeLayout) convertView
+				.findViewById(R.id.cell_content);
+		holder.item_right = (RelativeLayout) convertView
+				.findViewById(R.id.item_right);
+		holder.content = (TextView) convertView.findViewById(R.id.content);
+		holder.create_button = (Button) convertView
+				.findViewById(R.id.create_button);
+		holder.copy_button = (TextView) convertView
+				.findViewById(R.id.copy_button);
+		convertView.setTag(holder);
 
-		LinearLayout.LayoutParams lp1 = new LayoutParams(
+		LinearLayout.LayoutParams linearLayout1 = new LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		holder.cell_content.setLayoutParams(lp1);
-		LinearLayout.LayoutParams lp2 = new LayoutParams(mRightWidth,
+		holder.cell_content.setLayoutParams(linearLayout1);
+		LinearLayout.LayoutParams linearLayout2 = new LayoutParams(mRightWidth,
 				LayoutParams.MATCH_PARENT);
-		holder.item_right.setLayoutParams(lp2);
+		holder.item_right.setLayoutParams(linearLayout2);
 		holder.content.setText((CharSequence) data.get(position));
 		holder.create_button.setOnClickListener(new OnClickListener() {
 			@Override
@@ -102,6 +116,7 @@ public class SwipeableCellAdapter extends BaseAdapter {
 		TextView content;
 		Button create_button;
 		TextView copy_button;
+		Boolean needTouch = false;
 	}
 
 	public void setOnRightItemClickListener(onRightItemClickListener listener) {

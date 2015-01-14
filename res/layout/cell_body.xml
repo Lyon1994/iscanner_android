@@ -35,7 +35,7 @@
             android:height="60dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="create"
+            android:text="@string/create"
             android:textColor="@color/white"
             android:width="100dp" />
         <Button
@@ -49,7 +49,7 @@
             android:height="60dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="copy"
+            android:text="@string/copy"
             android:textColor="@color/white"
             android:width="100dp" />
     </RelativeLayout>

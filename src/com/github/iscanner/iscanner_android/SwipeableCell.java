@@ -1,5 +1,7 @@
 package com.github.iscanner.iscanner_android;
 
+import com.github.iscanner.iscanner_android.SwipeableCellAdapter.ViewHolder;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
@@ -11,21 +13,13 @@ import android.widget.ListView;
 
 public class SwipeableCell extends ListView {
 	private Boolean mIsHorizontal;
-
 	private View mPreItemView;
-
 	private View mCurrentItemView;
-
 	private float mFirstX;
-
 	private float mFirstY;
-
 	private int mRightViewWidth = 596;
-
 	private final int mDuration = 100;
-
 	private final int mDurationStep = 10;
-
 	private boolean mIsShown;
 
 	public SwipeableCell(Context context) {
@@ -80,7 +74,6 @@ public class SwipeableCell extends ListView {
 			}
 			break;
 		}
-
 		return super.onInterceptTouchEvent(ev);
 	}
 
@@ -103,7 +96,6 @@ public class SwipeableCell extends ListView {
 		} else {
 			canJudge = false;
 		}
-
 		return canJudge;
 	}
 
@@ -123,10 +115,13 @@ public class SwipeableCell extends ListView {
 			break;
 
 		case MotionEvent.ACTION_MOVE:
+			ViewHolder holder = (ViewHolder) mCurrentItemView.getTag();
+			if (!holder.needTouch) {
+				return true;
+			}
 			float dx = lastX - mFirstX;
 			float dy = lastY - mFirstY;
-			
-			//mCurrentItemView
+
 			if (mIsHorizontal == null) {
 				if (!judgeScrollDirection(dx, dy)) {
 					break;
@@ -211,15 +206,10 @@ public class SwipeableCell extends ListView {
 	@SuppressLint("HandlerLeak")
 	class MoveHandler extends Handler {
 		int stepX = 0;
-
 		int fromX;
-
 		int toX;
-
 		View view;
-
 		private boolean mIsInAnimation = false;
-
 		private void animatioOver() {
 			mIsInAnimation = false;
 			stepX = 0;

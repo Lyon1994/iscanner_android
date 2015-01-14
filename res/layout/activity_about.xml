@@ -18,6 +18,7 @@
         android:textColor="#0074ea" />
     <ImageView
         android:id="@+id/icon"
+        android:contentDescription="@string/app_name"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
