@@ -3,12 +3,10 @@ iScanner
 
 An easy-to-use scanner app for android.
 
----
-<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/launch.png" width="50%"/>
-<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/scan.png" width="50%"/>
-<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/history.png" width="50%"/>
-<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/copy.png" width="50%"/>
-<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/create.png" width="50%"/>
+## Installation
+
+Installation instructions are [on the homepage](http://iscanner.github.io/).
+
 ## Features
 
 - fast simple and exact
@@ -19,7 +17,16 @@ An easy-to-use scanner app for android.
 - store last three days items in the local
 - completely open source under MIT agreement
 
-Thanks to: 
+## Screenshot
+
+<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/launch.png" width="50%"/>
+<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/scan.png" width="50%"/>
+<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/history.png" width="50%"/>
+<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/copy.png" width="50%"/>
+<img src="https://raw.githubusercontent.com/iscanner/iscanner_android/master/screenshot/create.png" width="50%"/>
+
+
+Thanks to:
 
 - [zxing](https://github.com/zxing/zxing)
 - [iscanner_ios](https://github.com/iscanner/iscanner_ios)
