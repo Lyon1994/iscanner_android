@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@color/grgray"
+            android:background="@color/grey"
             android:drawableLeft="@drawable/copy"
             android:focusable="false"
             android:height="60dp"

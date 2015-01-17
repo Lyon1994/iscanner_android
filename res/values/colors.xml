@@ -7,10 +7,11 @@
     <color name="viewfinder_laser">#ffff0000</color>
     <color name="viewfinder_mask">#10000000</color>
     <color name="dialog_background">#000000</color>
-    <color name="grgray">#666666</color>
     <color name="grey">#666666</color>
+    <color name="lightgrey">#888888</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="lightgray">#aaaaaa</color>
     <color name="cell_header">#ededed</color>
+    <color name="title_button">#0074ea</color>
 </resources>
