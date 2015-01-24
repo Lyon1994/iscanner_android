@@ -135,24 +135,25 @@ public class MainActivity extends Activity implements Callback, OnClickListener 
 		inactivityTimer.onActivity();
 		playBeepSoundAndVibrate();
 		final String resultString = result.getText();
+		final String pureResultString = resultString.trim();
 		final String barcodeFormat = result.getBarcodeFormat().toString();
-		if (resultString.equals("")) {
+		if (pureResultString.equals("")) {
 			Toast.makeText(MainActivity.this, "Scan failed!",
 					Toast.LENGTH_SHORT).show();
 		} else {
 			Dialog alertDialog = new AlertDialog.Builder(this)
 					.setTitle(barcodeFormat)
-					.setMessage(resultString)
+					.setMessage(pureResultString)
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("ok",
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									setSharedPreferences("list", resultString);
+									setSharedPreferences("list", pureResultString);
 									Intent viewIntent = new Intent(
 											"android.intent.action.VIEW", Uri
-													.parse(resultString));
+													.parse(pureResultString));
 									startActivity(viewIntent);
 									continuePreview();
 								}
